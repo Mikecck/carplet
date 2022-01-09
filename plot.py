@@ -1,7 +1,7 @@
 from typing import Sequence
 
 
-#index[] = [Presedent, People, Environment, Treasury], scale=100
+#index[] = [president, People, Environment, Treasury], scale=100
 
 #----Group one, fire in the woods----#
 {
