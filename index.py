@@ -6,22 +6,22 @@ class Index:
 
         if init_value <= 0:
             raise ValueError("Index initial value cannot be negative or zero")
-        self._init_value = init_value
+        self._value = init_value
 
     @property
     def id_str(self):
         return self._id_str
     
     @property
-    def init_value(self):
-        return self.init_value
+    def value(self):
+        return self._value
     
-    @init_value.setter
-    def init_value(self, d):
-        self._init_value += d
+    @value.setter
+    def value(self, d: int):
+        self._value += d
     
     def destroy(self) -> bool:
-        return self._init_value <= 0
+        return self._value <= 0
 
 
     
