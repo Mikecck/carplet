@@ -2,7 +2,7 @@ import pygame
 
 WIDTH, HEIGHT = 960, 600
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
-
+clock = pygame.time.Clock()
 
 def main():
     run = True
@@ -16,3 +16,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+pygame.display.update()
+clock.tick(60)
