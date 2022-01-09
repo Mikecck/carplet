@@ -7,7 +7,7 @@ WIDTH, HEIGHT = 960, 600
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('Our Game')
 clock = pygame.time.Clock()
-test_font = pygame.font.Font('assets/font/Pixeltype.ttf', 50)
+test_font = pygame.font.Font('assets/font/Abel-Regular.ttf',50)
 
 #sounds
 start_sound = pygame.mixer.Sound('assets/sound/start.wav')
@@ -43,7 +43,7 @@ def game_intro():
         WIN.fill((139, 0, 18))
         WIN.blit(welcome_text_surf, welcome_rect)
         WIN.blit(start_text_surf, start_rect)
-        start_button = create_button(500, 300, 125, 26, (139, 0, 18), 'White', 'Start')
+        start_button = create_button(500, 320, 125, 70, (139, 0, 18), 'White', 'Start')
         if start_button:
             game()
         for event in pygame.event.get():
