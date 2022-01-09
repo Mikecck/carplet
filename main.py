@@ -6,6 +6,7 @@ from api import ImportSetting as Import
 from index import Index
 from event import Event
 from card import Card
+import time
 
 pygame.init()
 WIDTH, HEIGHT = 960, 600
@@ -21,6 +22,7 @@ number_font = pygame.font.Font(os.path.join("Assets/font", "Abel-Regular.ttf"), 
 
 # Sounds
 start_sound = pygame.mixer.Sound('assets/sound/start.wav')
+finish_sound = pygame.mixer.Sound('assets/sound/finish.wav')
 
 # Load images
 PRESIDENT_IMG = pygame.image.load(os.path.join("Assets/icon", "gov.png"))
@@ -125,11 +127,14 @@ def game():
     people = Index("People", 100)
     environment = Index("Environment", 100)
     treasury = Index("Treasury", 100)
-
+    time.sleep(0.5)
+    pygame.mixer.music.load('assets/sound/background.wav')
+    pygame.mixer.music.play(-1)
     while True:
         draw_game_window([president, people, environment, treasury])
-        button_pressed = press_button(100, 320, 125, 70, start_sound)
+        button_pressed = press_button(100, 320, 125, 70, end_sound)
         if button_pressed:
+            pygame.mixer.music.stop()
             finish(fail_id)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
