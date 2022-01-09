@@ -20,7 +20,7 @@ class Index:
     def init_value(self, d):
         self._init_value += d
     
-    def destory(self) -> bool:
+    def destroy(self) -> bool:
         return self._init_value <= 0
 
 
