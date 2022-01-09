@@ -34,37 +34,45 @@ PEOPLE_IC = pygame.transform.scale(PEOPLE_IMG, (48, 48))
 PLANT_IC = pygame.transform.scale(PLANT_IMG, (48, 48))
 MONEY_IC = pygame.transform.scale(MONEY_IMG, (48, 48))
 
+# Test case for failure
+fail_id = 3
 
-def create_button(x, y, width, height, hovercolor, defaultcolor, message):
+
+def render_button(x, y, width, height, hovercolor, defaultcolor, message):
     mouse = pygame.mouse.get_pos()
-    # Mouse get pressed can run without an integer, but needs a 3 or 5 to indicate how many buttons
-    click = pygame.mouse.get_pressed(3)
     btn_text_surf = test_font.render(message, True, hovercolor)
     btn_text_surf_hover = test_font.render(message, True, defaultcolor)
-    btn_text_rect = btn_text_surf.get_rect(midtop=(x + 60, y))
+    btn_text_rect = btn_text_surf.get_rect(midtop=(x + width / 2, y))
     if x + width > mouse[0] > x and y + height > mouse[1] > y:
         pygame.draw.rect(WIN, hovercolor, (x, y, width, height))
         WIN.blit(btn_text_surf_hover, btn_text_rect)
-        if click[0] == 1:
-            pygame.mixer.Sound.play(start_sound)
-            return True
     else:
         pygame.draw.rect(WIN, defaultcolor, (x, y, width, height))
         WIN.blit(btn_text_surf, btn_text_rect)
+
+
+def press_button(x, y, width, height, sound):
+    mouse = pygame.mouse.get_pos()
+    click = pygame.mouse.get_pressed(3)
+    if x + width > mouse[0] > x and y + height > mouse[1] > y and click[0] == 1:
+        pygame.mixer.Sound.play(sound)
+        return True
+    return False
 
 
 def game_intro():
     # welcome page text
     welcome_text_surf = test_font.render("Welcome to Our Game!", True, 'White')
     welcome_rect = welcome_text_surf.get_rect(midtop=(500, 200))
-    start_text_surf = test_font.render("Made by JAMA", True, 'White')
+    start_text_surf = test_font.render("Made by JAM", True, 'White')
     start_rect = start_text_surf.get_rect(midtop=(500, 250))
 
     while True:
         WIN.fill((139, 0, 18))
         WIN.blit(welcome_text_surf, welcome_rect)
         WIN.blit(start_text_surf, start_rect)
-        start_button = create_button(500, 320, 125, 70, (139, 0, 18), 'White', 'Start')
+        render_button(500, 320, 125, 70, (139, 0, 18), 'White', 'Start')
+        start_button = press_button(500, 320, 125, 70, start_sound)
         if start_button:
             game()
         for event in pygame.event.get():
@@ -72,7 +80,7 @@ def game_intro():
                 pygame.quit()
                 sys.exit()
         pygame.display.update()
-        clock.tick(15)
+        clock.tick(60)
         return True
 
 
@@ -103,7 +111,13 @@ def draw_game_window(indices: List[Index]):
     WIN.blit(MONEY_IC, (700, 25))
     WIN.blit(names[3], (690, 78))
     WIN.blit(values[3], (770, 30))
+
+    # Render buttons
+    render_button(100, 320, 125, 70, (139, 0, 18), 'White', 'End')
+
+    # Update
     pygame.display.update()
+    clock.tick(60)
 
 
 def game():
@@ -114,6 +128,9 @@ def game():
 
     while True:
         draw_game_window([president, people, environment, treasury])
+        button_pressed = press_button(100, 320, 125, 70, start_sound)
+        if button_pressed:
+            finish(fail_id)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -123,7 +140,30 @@ def game():
         if pressed[pygame.K_1]:
             president.value = -5
 
-        clock.tick(15)
+
+def finish(id):
+    if id == 0:
+        end_text_surf = test_font.render("The president FIRED you!", True, 'White')
+    elif id == 1:
+        end_text_surf = test_font.render("Your people REVOLT against you!", True, 'White')
+    elif id == 2:
+        end_text_surf = test_font.render("Mother earth is DYING!!", True, 'White')
+    else:
+        end_text_surf = test_font.render("Your office runs our of money!", True, 'White')
+
+    while True:
+        WIN.fill((139, 0, 18))
+        WIN.blit(end_text_surf, (280, 200))
+        render_button(350, 320, 170, 70, (139, 0, 18), 'White', 'Re-Play')
+        restart_button = press_button(350, 320, 170, 70, start_sound)
+        if restart_button:
+            game()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+        pygame.display.update()
+        clock.tick(60)
 
 
 if __name__ == "__main__":
@@ -139,7 +179,7 @@ if __name__ == "__main__":
                 sys.exit()
 
         pygame.display.update()
-        clock.tick(15)
+        clock.tick(60)
 
 
 # TODO: integration
