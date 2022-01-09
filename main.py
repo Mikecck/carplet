@@ -1,12 +1,13 @@
 import sys
 import pygame
+from api import ImportSetting as Import
 
 pygame.init()
 WIDTH, HEIGHT = 960, 600
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('Our Game')
 clock = pygame.time.Clock()
-test_font = pygame.font.Font('assets/font/Pixeltype.ttf',50)
+test_font = pygame.font.Font('assets/font/Pixeltype.ttf', 50)
 
 #sounds
 start_sound = pygame.mixer.Sound('assets/sound/start.wav')
@@ -69,7 +70,9 @@ def game():
 
 
 if __name__ == "__main__":
-    # Game loop
+    config_file = "plot.json"
+    events = Import(config_file).read_plot()
+
     while True:
         game_intro()
 
@@ -82,7 +85,6 @@ if __name__ == "__main__":
         clock.tick(15)
 
 
-# TODO: card
 # TODO: integration
 # TODO: event
 # TODO: game over, restart
