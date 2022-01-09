@@ -132,7 +132,7 @@ def game():
     pygame.mixer.music.play(-1)
     while True:
         draw_game_window([president, people, environment, treasury])
-        button_pressed = press_button(100, 320, 125, 70, end_sound)
+        button_pressed = press_button(100, 320, 125, 70, finish_sound)
         if button_pressed:
             pygame.mixer.music.stop()
             finish(fail_id)
