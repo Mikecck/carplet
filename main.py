@@ -1,17 +1,38 @@
+import os
 import sys
 import pygame
+from typing import List
 from api import ImportSetting as Import
+from index import Index
+from event import Event
+from card import Card
 
 pygame.init()
 WIDTH, HEIGHT = 960, 600
+I_PRESIDENT, I_PEOPLE, I_ENVIRONMENT, I_TREASURY = 100, 100, 100, 100
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('Our Game')
 clock = pygame.time.Clock()
-test_font = pygame.font.Font('assets/font/Abel-Regular.ttf',50)
 
-#sounds
+# Fonts
+test_font = pygame.font.Font('assets/font/Abel-Regular.ttf', 50)
+index_font = pygame.font.Font(os.path.join("Assets/font", "Abel-Regular.ttf"), 20)
+number_font = pygame.font.Font(os.path.join("Assets/font", "Abel-Regular.ttf"), 40)
+
+# Sounds
 start_sound = pygame.mixer.Sound('assets/sound/start.wav')
-#--------
+
+# Load images
+PRESIDENT_IMG = pygame.image.load(os.path.join("Assets/icon", "gov.png"))
+PEOPLE_IMG = pygame.image.load(os.path.join("Assets/icon", "ppl.png"))
+PLANT_IMG = pygame.image.load(os.path.join("Assets/icon", "plant.png"))
+MONEY_IMG = pygame.image.load(os.path.join("Assets/icon", "money.png"))
+
+# Scale images
+PRESIDENT_IC = pygame.transform.scale(PRESIDENT_IMG, (48, 48))
+PEOPLE_IC = pygame.transform.scale(PEOPLE_IMG, (48, 48))
+PLANT_IC = pygame.transform.scale(PLANT_IMG, (48, 48))
+MONEY_IC = pygame.transform.scale(MONEY_IMG, (48, 48))
 
 
 def create_button(x, y, width, height, hovercolor, defaultcolor, message):
@@ -55,17 +76,53 @@ def game_intro():
         return True
 
 
+def draw_game_window(indices: List[Index]):
+    game_text_surf = test_font.render("Here to Code the Game", True, 'Black')
+    names = [index_font.render(index.id_str, True, 'Black') for index in indices]
+    values = [number_font.render(str(index.value), True, 'Black') for index in indices]
+
+    WIN.fill((255, 255, 255))  # WHITE
+    WIN.blit(game_text_surf, (500, 300))
+
+    # President Index
+    WIN.blit(PRESIDENT_IC, (100, 25))
+    WIN.blit(names[0], (90, 78))
+    WIN.blit(values[0], (170, 30))
+
+    # People Index
+    WIN.blit(PEOPLE_IC, (300, 25))
+    WIN.blit(names[1], (300, 78))
+    WIN.blit(values[1], (370, 30))
+
+    # Environment Index
+    WIN.blit(PLANT_IC, (500, 25))
+    WIN.blit(names[2], (480, 78))
+    WIN.blit(values[2], (570, 30))
+
+    # Treasury Index
+    WIN.blit(MONEY_IC, (700, 25))
+    WIN.blit(names[3], (690, 78))
+    WIN.blit(values[3], (770, 30))
+    pygame.display.update()
+
+
 def game():
-    game_text_surf = test_font.render("Here to Code the Game", True, 'White')
+    president = Index("President", 100)
+    people = Index("People", 100)
+    environment = Index("Environment", 100)
+    treasury = Index("Treasury", 100)
+
     while True:
-        WIN.fill((0, 0, 0))
-        WIN.blit(game_text_surf, (500, 300))
+        draw_game_window([president, people, environment, treasury])
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
 
-        pygame.display.update()
+        pressed = pygame.key.get_pressed()
+        if pressed[pygame.K_1]:
+            president.value = -5
+
         clock.tick(15)
 
 
