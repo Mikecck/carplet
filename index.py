@@ -19,6 +19,9 @@ class Index:
     @value.setter
     def value(self, d: int):
         self._value += d
+
+    def reset(self, value):
+        self._value = value
     
     def destroy(self) -> bool:
         return self._value <= 0
