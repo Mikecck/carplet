@@ -1,5 +1,6 @@
 import sys
 import pygame
+from api import ImportSetting as Import
 
 pygame.init()
 WIDTH, HEIGHT = 960, 600
@@ -98,7 +99,9 @@ def game():
 
 
 if __name__ == "__main__":
-    # Game loop
+    config_file = "plot.json"
+    events = Import(config_file).read_plot()
+
     while True:
         game_intro()
 
@@ -111,7 +114,6 @@ if __name__ == "__main__":
         clock.tick(60)
 
 
-# TODO: card
 # TODO: integration
 # TODO: event
 # TODO: game over, restart

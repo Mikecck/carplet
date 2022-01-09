@@ -1,0 +1,50 @@
+[
+    {
+        "title": "Smoke in the Woods",
+        "desc": "Someone reports observing unusual smoke coming out of the woods",
+        "cards": [
+            {
+                "title": "Do Nothing",
+                "desc": "Probobaly kids BBQ",
+                "effects":[0,0,-20,0],
+                "cons":"You think it's not a big deal and decide not to worry about it"
+            },
+            {
+                "title": "Ask a Ranger",
+                "desc": "Hey, you know what's going on?",
+                "effects":[0,10,0,0],
+                "cons":"The ranger decide to check it out himself"
+            },
+            {
+                "title": "Let Me See",
+                "desc": "I'll go and have a look",
+                "effects":[0,0,0,-10],
+                "cons":"You decide to travel to the woods"
+            }
+        ]
+    },
+    {
+        "title": "FIRE!",
+        "desc": "The smoke in the woods turns out to be a FIRE!",
+        "cards": [
+            {
+                "title": "Do Nothing",
+                "desc": "Let it Burn",
+                "effects":[0,0,-30,0],
+                "cons":"What's the big deal?"
+            },
+            {
+                "title": "Tries to Stop the Fire Yourself",
+                "desc": "That is very Brave of Me Indeed",
+                "effects":[10,10,-10,0],
+                "cons":"You did your best"
+            },
+            {
+                "title": "Pay the Firefighters",
+                "desc": "For the heros!",
+                "effects":[0,0,0,-20],
+                "cons":"You guys made it!"
+            }
+        ]
+    }
+]

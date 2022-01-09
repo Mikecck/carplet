@@ -10,10 +10,6 @@ class Card:
         if cons == "":
             raise ValueError("Card consequence cannot be empty string")
 
-        for e in effects:
-            if e < 0:
-                raise ValueError("Card effects must not be negative")
-
         self._title = title
         self._desc = desc
         self._effects = effects
