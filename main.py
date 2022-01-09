@@ -1,5 +1,6 @@
 import sys
 import pygame
+import time
 from api import ImportSetting as Import
 
 pygame.init()
@@ -14,6 +15,7 @@ fail_id = 3
 
 #sounds
 start_sound = pygame.mixer.Sound('assets/sound/start.wav')
+finish_sound = pygame.mixer.Sound('assets/sound/finish.wav')
 #--------
 
 
@@ -83,12 +85,15 @@ def finish(id):
 
 def game():
     game_text_surf = test_font.render("Here to Code the Game", True, 'White')
-    
+    time.sleep(0.5)
+    pygame.mixer.music.load('assets/sound/background.wav')
+    pygame.mixer.music.play(-1)
     while True:
         WIN.fill((0, 0, 0))
         WIN.blit(game_text_surf, (500, 300))
-        end_button = create_button(100, 320, 125, 70, (139, 0, 18), 'White', 'End', start_sound)
+        end_button = create_button(100, 320, 125, 70, (139, 0, 18), 'White', 'End', finish_sound)
         if end_button:
+            pygame.mixer.music.stop()
             finish(fail_id)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
