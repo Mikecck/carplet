@@ -13,7 +13,7 @@ from card import Card
 # Global Value Initialization
 WIDTH, HEIGHT = 960, 600
 
-START = 50
+START = 200
 I_PRESIDENT = Index("President", START)
 I_PEOPLE = Index("People", START)
 I_ENVIRONMENT = Index("Environment", START)
@@ -232,61 +232,63 @@ def game(plot: List[Event]):
             card_1_position_y -= 10
             card_2_position_y = default
             card_3_position_y = default
+            if card_1_position_y <= 200:
+                draw_game_window([I_PRESIDENT, I_PEOPLE, I_ENVIRONMENT, I_TREASURY], plot[i_event], 1)
 
-            draw_game_window([I_PRESIDENT, I_PEOPLE, I_ENVIRONMENT, I_TREASURY], plot[i_event], 1)
+                I_PRESIDENT.value = cards[0].effects[0]
+                I_PEOPLE.value = cards[0].effects[1]
+                I_ENVIRONMENT.value = cards[0].effects[2]
+                I_TREASURY.value = cards[0].effects[3]
+                i_event += 1
 
-            I_PRESIDENT.value = cards[0].effects[0]
-            I_PEOPLE.value = cards[0].effects[1]
-            I_ENVIRONMENT.value = cards[0].effects[2]
-            I_TREASURY.value = cards[0].effects[3]
-            i_event += 1
+                card_1_position_y = default
+                card_2_position_y = default
+                card_3_position_y = default
 
-            card_1_position_y = default
-            card_2_position_y = default
-            card_3_position_y = default
-
-            check_game_ended(i_event, plot)
-            draw_game_window([I_PRESIDENT, I_PEOPLE, I_ENVIRONMENT, I_TREASURY], plot[i_event], 1)
+                check_game_ended(i_event, plot)
+                draw_game_window([I_PRESIDENT, I_PEOPLE, I_ENVIRONMENT, I_TREASURY], plot[i_event], 1)
 
         elif keys[pygame.K_w] and card_2_position_y > 200:
             card_1_position_y = default
             card_2_position_y -= 10
             card_3_position_y = default
 
-            draw_game_window([I_PRESIDENT, I_PEOPLE, I_ENVIRONMENT, I_TREASURY], plot[i_event], 2)
+            if card_2_position_y <= 200:
+                draw_game_window([I_PRESIDENT, I_PEOPLE, I_ENVIRONMENT, I_TREASURY], plot[i_event], 2)
 
-            I_PRESIDENT.value = cards[1].effects[0]
-            I_PEOPLE.value = cards[1].effects[1]
-            I_ENVIRONMENT.value = cards[1].effects[2]
-            I_TREASURY.value = cards[1].effects[3]
-            i_event += 1
+                I_PRESIDENT.value = cards[1].effects[0]
+                I_PEOPLE.value = cards[1].effects[1]
+                I_ENVIRONMENT.value = cards[1].effects[2]
+                I_TREASURY.value = cards[1].effects[3]
+                i_event += 1
 
-            card_1_position_y = default
-            card_2_position_y = default
-            card_3_position_y = default
+                card_1_position_y = default
+                card_2_position_y = default
+                card_3_position_y = default
 
-            check_game_ended(i_event, plot)
-            draw_game_window([I_PRESIDENT, I_PEOPLE, I_ENVIRONMENT, I_TREASURY], plot[i_event], 2)
+                check_game_ended(i_event, plot)
+                draw_game_window([I_PRESIDENT, I_PEOPLE, I_ENVIRONMENT, I_TREASURY], plot[i_event], 2)
 
         elif keys[pygame.K_e] and card_3_position_y > 200:
             card_1_position_y = default
             card_2_position_y = default
             card_3_position_y -= 10
 
-            draw_game_window([I_PRESIDENT, I_PEOPLE, I_ENVIRONMENT, I_TREASURY], plot[i_event], 3)
+            if card_3_position_y <= 200:
+                draw_game_window([I_PRESIDENT, I_PEOPLE, I_ENVIRONMENT, I_TREASURY], plot[i_event], 3)
 
-            I_PRESIDENT.value = cards[2].effects[0]
-            I_PEOPLE.value = cards[2].effects[1]
-            I_ENVIRONMENT.value = cards[2].effects[2]
-            I_TREASURY.value = cards[2].effects[3]
-            i_event += 1
+                I_PRESIDENT.value = cards[2].effects[0]
+                I_PEOPLE.value = cards[2].effects[1]
+                I_ENVIRONMENT.value = cards[2].effects[2]
+                I_TREASURY.value = cards[2].effects[3]
+                i_event += 1
 
-            card_1_position_y = default
-            card_2_position_y = default
-            card_3_position_y = default
+                card_1_position_y = default
+                card_2_position_y = default
+                card_3_position_y = default
 
-            check_game_ended(i_event, plot)
-            draw_game_window([I_PRESIDENT, I_PEOPLE, I_ENVIRONMENT, I_TREASURY], plot[i_event], 3)
+                check_game_ended(i_event, plot)
+                draw_game_window([I_PRESIDENT, I_PEOPLE, I_ENVIRONMENT, I_TREASURY], plot[i_event], 3)
 
 
 def draw_finish_window(reason: int) -> None:
@@ -309,7 +311,7 @@ def draw_finish_window(reason: int) -> None:
 
     # Update
     pygame.display.update()
-    clock.tick(60)
+    # clock.tick(60)
 
 
 def finish(reason: int, orig_plot: List[Event]):
